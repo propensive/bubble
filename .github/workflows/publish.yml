@@ -1,7 +1,8 @@
 name: Build
 on:
-  tags:
-    - pending/*
+  push:
+    tags:
+      - 'pending/*'
 jobs:
   build:
     runs-on: ubuntu-latest
