@@ -24,7 +24,7 @@ jobs:
     - name: 'Abort if tag exists'
       id: checkTagged
       shell: bash
-      run: git show-ref --tags --verify --quiet -- "refs/tags/release/${{ steps.tagName.outputs.version }}" && exit 0 || exit 1
+      run: git show-ref --tags --verify --quiet -- "refs/tags/release/${{ steps.tagName.outputs.version }}" && exit 1 || exit 0
     - name: Publish
       run: echo Publishing
     - name: Tag release
