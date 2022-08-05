@@ -31,6 +31,7 @@ jobs:
     - name: Tag release
       uses: actions/github-script@v6
       with:
+        github-token: ${{ secrets.RELEASE_TOKEN }}
         script: |
           let newRef = context.ref.replace('pending', 'release');
           github.rest.git.createRef({
@@ -38,9 +39,4 @@ jobs:
             repo: context.repo.repo,
             ref: newRef,
             sha: context.sha
-          });
-          github.rest.git.deleteRef({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            ref: 'refs/tags/fibble'
           });
