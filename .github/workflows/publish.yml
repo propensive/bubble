@@ -40,3 +40,8 @@ jobs:
             ref: newRef,
             sha: context.sha
           });
+          github.rest.git.deleteRef({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: context.ref
+          });
