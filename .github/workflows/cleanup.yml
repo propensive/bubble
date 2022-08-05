@@ -1,6 +1,6 @@
 name: Cleanup
 on:
-  push:
+  create:
     tags:
       - 'release/*'
 jobs:
