@@ -11,6 +11,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         submodules: recursive
+        fetch-depth: 0
     - name: Setup Java 11
       uses: actions/setup-java@v2
       with:
@@ -37,4 +38,9 @@ jobs:
             repo: context.repo.repo,
             ref: newRef,
             sha: context.sha
+          });
+          github.rest.git.deleteRef({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: context.ref
           });
