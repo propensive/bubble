@@ -1,0 +1,19 @@
+name: Cleanup
+on:
+  push:
+    tags:
+      - 'release/*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Delete Pending Tags
+      uses: actions/github-script@v5
+      with:
+        script: |
+          let oldRef = context.ref.replace('release', 'pending');
+          github.rest.git.deleteRef({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: oldRef
+          });
