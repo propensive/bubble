@@ -2,7 +2,7 @@ name: Publish
 on:
   push:
     tags:
-      - 'pending/*'
+      - 'pending-*'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,11 +21,11 @@ jobs:
       run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
     - name: Get Version
       id: tagName
-      run: echo ::set-output name=version::${GITHUB_REF#refs/tags/pending/}
+      run: echo ::set-output name=version::${GITHUB_REF#refs/tags/pending-}
     - name: 'Abort if tag exists'
       id: checkTagged
       shell: bash
-      run: git show-ref --tags --verify --quiet -- "refs/tags/release/${{ steps.tagName.outputs.version }}" && exit 1 || exit 0
+      run: git show-ref --tags --verify --quiet -- "refs/tags/release-${{ steps.tagName.outputs.version }}" && exit 1 || exit 0
     - name: Publish
       run: echo Publishing
     - name: Tag release
