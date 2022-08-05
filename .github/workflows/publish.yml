@@ -25,6 +25,6 @@ jobs:
           github.rest.git.createRef({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            ref: 'refs/tags/'+context.ref.replace('pending', 'release'),
+            ref: context.ref.replace('pending', 'release'),
             sha: context.sha
           })
