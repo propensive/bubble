@@ -16,15 +16,25 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '11'
+    - name: Fetch tags
+      run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+    - name: Get Version
+      id: tagName
+      run: echo ::set-output name=version::${GITHUB_REF#refs/tags/pending/}
+    - name: 'Abort if tag exists'
+      id: checkTagged
+      shell: bash
+      run: git show-ref --tags --verify --quiet -- "refs/tags/release/${{ steps.tagName.outputs.version }}" && exit 0 || exit 1
     - name: Publish
       run: echo Publishing
     - name: Tag release
       uses: actions/github-script@v5
       with:
         script: |
+          let newRef = context.ref.replace('pending', 'release');
           github.rest.git.createRef({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            ref: context.ref.replace('pending', 'release'),
+            ref: newRef,
             sha: context.sha
           })
