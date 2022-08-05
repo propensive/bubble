@@ -42,5 +42,5 @@ jobs:
           github.rest.git.deleteRef({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            ref: context.ref
+            ref: context.ref.substring(10)
           });
