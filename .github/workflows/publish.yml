@@ -19,12 +19,12 @@ jobs:
     - name: Publish
       run: echo Publishing
     - name: Tag release
-       uses: actions/github-script@v5
-       with:
-         script: |
-           github.rest.git.createRef({
-             owner: context.repo.owner,
-             repo: context.repo.repo,
-             ref: 'refs/tags/release',
-             sha: context.sha
-           })
+      uses: actions/github-script@v5
+      with:
+        script: |
+          github.rest.git.createRef({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: 'refs/tags/release',
+            sha: context.sha
+          })
